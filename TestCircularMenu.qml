@@ -9,8 +9,8 @@ Item {
     CircularMenu {
         id: circularMenu
 
-        outerRadius: 250
-        innerRadius: 150
+        outerRadius: 70
+        innerRadius: 45
 
         listModel: ListModel {
             ListElement {

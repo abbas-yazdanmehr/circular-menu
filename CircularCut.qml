@@ -35,8 +35,8 @@ Item {
         // ------------------------ outer circle
         ShapePath {
             id: cutOuter
-            //        strokeWidth: 4
-            //        strokeColor: 'blue'
+                    strokeWidth: 4
+                    strokeColor: 'transparent'
 
             fillColor: cutBackgroundColor
 
@@ -49,29 +49,20 @@ Item {
                 sweepAngle: cutLen
             }
             PathLine {
-                x: 0
-                y: 0
+                x: cutInnerRadius * Math.cos(toDegree(cutStartAngle + cutLen))
+                y: cutInnerRadius * Math.sin(toDegree(cutStartAngle + cutLen))
             }
-        }
-
-        // ------------------------ inner circle
-        ShapePath {
-            //            strokeWidth: 4
-            //            strokeColor: 'blue'
-
-            fillColor: 'transparent'
-
             PathAngleArc {
                 centerX: 0
                 centerY: 0
                 radiusX: cutInnerRadius
                 radiusY: cutInnerRadius
-                startAngle: cutStartAngle
-                sweepAngle: cutLen
+                startAngle: cutStartAngle + cutLen
+                sweepAngle: -cutLen
             }
             PathLine {
-                x: 0
-                y: 0
+                x: cutOuterRadius * Math.cos(toDegree(cutStartAngle))
+                y: cutOuterRadius * Math.sin(toDegree(cutStartAngle))
             }
         }
 

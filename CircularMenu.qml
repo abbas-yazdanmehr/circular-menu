@@ -5,6 +5,7 @@ import QtQuick.Layouts
 
 Item {
     // ----------------------------------------- properties
+    id: rootItem
     property ListModel listModel: ListModel{}
     property double outerRadius: 400
     property double innerRadius: 300
@@ -16,68 +17,104 @@ Item {
 
     anchors.fill: parent
 
+    // functions
+    function toDegree (radianAngle) {
+        return radianAngle * Math.PI / 180;
+    }
+
 
     // ----------------------------------------- animation
-    PropertyAnimation on outerRadius {
-        id: outerAnimation
-        easing.type: Easing.OutElastic
-        from: 0
-        to: outerRadius
-        duration: parseInt(animationDuration)
-    }
+//    PropertyAnimation on outerRadius {
+//        id: outerAnimation
+//        easing.type: Easing.OutElastic
+//        from: 0
+//        to: outerRadius
+//        duration: parseInt(animationDuration)
+//    }
 
-    PropertyAnimation on innerRadius {
-        id: innerAnimation
-        easing.type: Easing.OutElastic
-        from: 0
-        to: innerRadius
-        duration: parseInt(animationDuration)
-    }
+//    PropertyAnimation on innerRadius {
+//        id: innerAnimation
+//        easing.type: Easing.OutElastic
+//        from: 0
+//        to: innerRadius
+//        duration: parseInt(animationDuration)
+//    }
 
     // ----------------------------------------- fake background
-    Rectangle {
-        id: fakeOuterCircle
+//    Rectangle {
+//        id: fakeOuterCircle
 
-//        visible: false
+////        visible: false
 
-        width: outerRadius * 2
-        height: outerRadius * 2
-        radius: outerRadius
-        opacity: 0.5
-        color: 'transparent'
-        //        color: 'pink'
-        anchors.centerIn: parent
+//        width: outerRadius * 2
+//        height: outerRadius * 2
+//        radius: outerRadius
+//        opacity: 0.5
+//        color: 'transparent'
+//        //        color: 'pink'
+//        anchors.centerIn: parent
 
-        Rectangle {
-            id: fakeInnerCircle
+//        Rectangle {
+//            id: fakeInnerCircle
 
-            width: innerRadius * 2
-            height: innerRadius * 2
-            radius: innerRadius
-            opacity: 0.6
+//            width: innerRadius * 2
+//            height: innerRadius * 2
+//            radius: innerRadius
+//            opacity: 0.6
 
-            color: 'gold'
+//            color: 'gold'
+//            anchors.centerIn: parent
+//        }
+//    }
+
+    // ----------------------------------------- real background
+    Item {
+        anchors.fill: parent
+
+        Shape {
             anchors.centerIn: parent
-        }
+            containsMode: Shape.FillContains
+
+            ShapePath {
+                strokeColor: "cyan"
+                strokeWidth: 25
+                fillColor: 'transparent'
+                capStyle: ShapePath.RoundCap
+
+                PathAngleArc {
+                    centerX: 0
+                    centerY: 0
+                    radiusX: outerRadius
+                    radiusY: outerRadius
+                    startAngle: -180
+                    sweepAngle: 180
+                }
+            }
+
     }
+
+
+    }
+
+
 
     // ----------------------------------------- Circular Menu
-    Repeater {
-        anchors.fill: parent
-        model: listModel.count
+//    Repeater {
+//        anchors.fill: parent
+//        model: listModel.count
 
-        CircularCut {
-            required property var model
+//        CircularCut {
+//            required property var model
 
-            cutText: listModel.get(model.index).name
-            cutOuterRadius: outerRadius
-            cutInnerRadius: innerRadius
-            cutStartAngle: startAngle + model.index * currentCutLen
-            cutLen: currentCutLen
-            cutIconColor: listModel.get(model.index).color
-            onCutClicked: {
-                console.log(listModel.get(model.index).name)
-            }
-        }
-    }
+//            cutText: listModel.get(model.index).name
+//            cutOuterRadius: outerRadius
+//            cutInnerRadius: innerRadius
+//            cutStartAngle: startAngle + model.index * currentCutLen
+//            cutLen: currentCutLen
+//            cutIconColor: listModel.get(model.index).color
+//            onCutClicked: {
+//                console.log(listModel.get(model.index).name)
+//            }
+//        }
+//    }
 }
